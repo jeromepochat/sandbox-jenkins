@@ -10,3 +10,11 @@ stage('Shell using Docker') {
         }
     }
 }
+
+stage('Maven using Docker') {
+    node {
+        withDockerContainer('maven:3.8.7-eclipse-temurin-11-alpine') {
+            sh 'mvn clean install'
+        }
+    }
+}

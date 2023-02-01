@@ -7,7 +7,7 @@ def splits
 stage('Prepare splits') {
     node {
         checkout scm
-        splits = splitTests estimateTestsFromFiles: true, generateInclusions: true
+        splits = splitTests estimateTestsFromFiles: true, generateInclusions: true, parallelism: count(NUMBER_OF_BRANCHES)
     }
 }
 

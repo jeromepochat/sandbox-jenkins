@@ -18,7 +18,7 @@ stage('Integration') {
             branches["split${num}"] = {
                 echo "in split$num: $split"
                 writeFile file: (split.includes ? 'includes.txt' : 'excludes.txt'), text: split.list.join("\n")
-                // writeFile file: (split.includes ? 'excludes.txt' : 'includes.txt'), text: ''
+                writeFile file: (split.includes ? 'excludes.txt' : 'includes.txt'), text: ''
 
                 withMaven(maven: 'maven-3.8.7') {
                     sh "mvn clean install"

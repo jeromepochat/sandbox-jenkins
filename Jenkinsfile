@@ -2,14 +2,14 @@
 
 // def splits
 
-agent any
+// agent any
 
 stage('Prepare splits') {
-    // node('ubuntu') {
+    node {
         checkout scm
         // splits = splitTests estimateTestsFromFiles: true, generateInclusions: true
         // , parallelism: count(NUMBER_OF_BRANCHES)
-    // }
+    }
 }
 
 // stage('Integration') {

@@ -13,6 +13,7 @@ stage('Prepare splits') {
 
 stage('Integration') {
     node {
+        echo "blabla"
         def branches = [:]
         for (int i = 0; i < splits.size(); i++) {
             def num = i

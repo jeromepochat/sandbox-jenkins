@@ -7,12 +7,12 @@ import static org.junit.Assert.assertTrue;
 public class AppTest2 {
 
     @Test
-    public void testFast() {
+    public void test2A() {
         assertTrue(true);
     }
 
     @Test
-    public void testSlow() {
+    public void test2B() {
         assertTrue(true);
     }
 }

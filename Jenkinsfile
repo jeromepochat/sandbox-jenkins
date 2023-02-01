@@ -3,8 +3,10 @@ NUMBER_OF_BRANCHES=2
 def splits
 
 stage('Prepare splits') {
-    checkout scm
-    splits = splitTests estimateTestsFromFiles: true, generateInclusions: true, parallelism: count(NUMBER_OF_BRANCHES)
+    node('ubuntu') {
+        checkout scm
+        splits = splitTests estimateTestsFromFiles: true, generateInclusions: true, parallelism: count(NUMBER_OF_BRANCHES)
+    }
 }
 
 stage('Integration') {

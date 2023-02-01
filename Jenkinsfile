@@ -1,17 +1,23 @@
 stage('build') {
 
     parallel(
+        a: {
+
         node('ubuntu') {
         // node('maven') {
             // git branch: 'main', credentialsId: 'cf646dbe-d09f-4d80-99a0-ec9be5122ede', url: 'git@github.com:jeromepochat/sandbox-jenkins.git'
             // sh 'mvn --version'
             sh 'echo "Hello 1"'
+        }
         },
+        b: {
+
         node('ubuntu') {
         // node('maven') {
             // git branch: 'main', credentialsId: 'cf646dbe-d09f-4d80-99a0-ec9be5122ede', url: 'git@github.com:jeromepochat/sandbox-jenkins.git'
             // sh 'mvn --version'
             sh 'echo "Hello 2"'
+        }
         }
         // node {
         //     withDockerContainer( 

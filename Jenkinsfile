@@ -2,12 +2,12 @@ NUMBER_OF_BRANCHES=2
 
 def splits
 
-stage('build') {
+stage('Prepare splits') {
     checkout scm
     splits = splitTests estimateTestsFromFiles: true, generateInclusions: true, parallelism: count(NUMBER_OF_BRANCHES)
 }
 
-stage('build') {
+stage('Integration') {
 
     parallel(
         a: {

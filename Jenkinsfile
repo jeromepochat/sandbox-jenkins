@@ -2,16 +2,14 @@ stage('build') {
 
     parallel(
         a: {
-            node { label 'ubuntu' } {
-            // node('azerty') {
+            node('ubuntu') {
                 // git branch: 'main', credentialsId: 'cf646dbe-d09f-4d80-99a0-ec9be5122ede', url: 'git@github.com:jeromepochat/sandbox-jenkins.git'
                 // sh 'mvn --version'
                 sh 'echo "Hello 1"'
             }
         },
         b: {
-            node { label 'ubuntu' } {
-            // node('azerty') {
+            node('ubuntu') {
                 // git branch: 'main', credentialsId: 'cf646dbe-d09f-4d80-99a0-ec9be5122ede', url: 'git@github.com:jeromepochat/sandbox-jenkins.git'
                 // sh 'mvn --version'
                 sh 'echo "Hello 2"'

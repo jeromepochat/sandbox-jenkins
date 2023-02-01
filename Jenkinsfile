@@ -1,3 +1,12 @@
+NUMBER_OF_BRANCHES=2
+
+def splits
+
+stage('build') {
+    checkout scm
+    splits = splitTests estimateTestsFromFiles: true, generateInclusions: true, parallelism: count(NUMBER_OF_BRANCHES)
+}
+
 stage('build') {
 
     parallel(
@@ -5,18 +14,14 @@ stage('build') {
             node('ubuntu') {
                 // git branch: 'main', credentialsId: 'cf646dbe-d09f-4d80-99a0-ec9be5122ede', url: 'git@github.com:jeromepochat/sandbox-jenkins.git'
                 // sh 'mvn --version'
-                sh 'echo "Hello from container"'
+                sh 'echo "Hello from container 1"'
             }
         },
-        c: {
-            node {
-                withDockerContainer( 
-                    image: 'maven:3.8.7-eclipse-temurin-11-alpine',
-                    // args: '-v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven') {
-                    // git branch: 'main', credentialsId: 'cf646dbe-d09f-4d80-99a0-ec9be5122ede', url: 'git@github.com:jeromepochat/sandbox-jenkins.git'
-                    // sh 'mvn clean install -Dgroups=com.acme.sandbox.Fast'
-                    sh 'echo "Hello from pod"'
-                }
+        b: {
+            node('ubuntu') {
+                // git branch: 'main', credentialsId: 'cf646dbe-d09f-4d80-99a0-ec9be5122ede', url: 'git@github.com:jeromepochat/sandbox-jenkins.git'
+                // sh 'mvn --version'
+                sh 'echo "Hello from container 2"'
             }
         }
     )

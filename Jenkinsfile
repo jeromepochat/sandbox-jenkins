@@ -1,14 +1,14 @@
-// NUMBER_OF_BRANCHES=2
+NUMBER_OF_BRANCHES=2
 
-// def splits
+def splits
 
 // agent any
 
 stage('Prepare splits') {
     node {
         checkout scm
-        // splits = splitTests estimateTestsFromFiles: true, generateInclusions: true
-        // , parallelism: count(NUMBER_OF_BRANCHES)
+        splits = splitTests estimateTestsFromFiles: true, generateInclusions: true
+        , parallelism: count(NUMBER_OF_BRANCHES)
     }
 }
 

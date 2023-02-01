@@ -4,8 +4,8 @@ stage('build') {
         a: {
 
         // node('ubuntu') {
-        node('maven') {
-            git branch: 'main', credentialsId: 'cf646dbe-d09f-4d80-99a0-ec9be5122ede', url: 'git@github.com:jeromepochat/sandbox-jenkins.git'
+        node('azerty') {
+            // git branch: 'main', credentialsId: 'cf646dbe-d09f-4d80-99a0-ec9be5122ede', url: 'git@github.com:jeromepochat/sandbox-jenkins.git'
             // sh 'mvn --version'
             sh 'echo "Hello 1"'
         }
@@ -13,8 +13,8 @@ stage('build') {
         b: {
 
         // node('ubuntu') {
-        node('maven') {
-            git branch: 'main', credentialsId: 'cf646dbe-d09f-4d80-99a0-ec9be5122ede', url: 'git@github.com:jeromepochat/sandbox-jenkins.git'
+        node('azerty') {
+            // git branch: 'main', credentialsId: 'cf646dbe-d09f-4d80-99a0-ec9be5122ede', url: 'git@github.com:jeromepochat/sandbox-jenkins.git'
             // sh 'mvn --version'
             sh 'echo "Hello 2"'
         }

@@ -6,14 +6,13 @@ def splits
 
 stage('Prepare splits') {
     node {
-        checkout scm
+        // checkout scm
         splits = splitTests estimateTestsFromFiles: true, generateInclusions: true, parallelism: count(NUMBER_OF_BRANCHES)
     }
 }
 
 stage('Integration') {
     node {
-        echo "blabla"
         def branches = [:]
         for (int i = 0; i < splits.size(); i++) {
             def num = i
@@ -24,6 +23,7 @@ stage('Integration') {
                 // writeFile file: (split.includes ? 'excludes.txt' : 'includes.txt'), text: ''
             }
         }
+        parallel branches
     }
 
 //     parallel(

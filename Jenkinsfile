@@ -5,7 +5,8 @@ def splits
 stage('Prepare splits') {
     node('ubuntu') {
         checkout scm
-        splits = splitTests estimateTestsFromFiles: true, generateInclusions: true, parallelism: count(NUMBER_OF_BRANCHES)
+        splits = splitTests estimateTestsFromFiles: true, generateInclusions: true
+        // , parallelism: count(NUMBER_OF_BRANCHES)
     }
 }
 

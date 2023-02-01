@@ -8,6 +8,15 @@ stage('Prepare splits') {
     node {
         checkout scm
         splits = splitTests estimateTestsFromFiles: true, generateInclusions: true, parallelism: count(NUMBER_OF_BRANCHES)
+        def split = splits[num]
+        for (int i = 0; i < splits.size(); i++) {
+            def num = i
+            branches["split${num}"] = {
+                echo "in split$num: $split"
+                // writeFile file: (split.includes ? 'includes.txt' : 'excludes.txt'), text: split.list.join("\n")
+                // writeFile file: (split.includes ? 'excludes.txt' : 'includes.txt'), text: ''
+            }
+        }
     }
 }
 

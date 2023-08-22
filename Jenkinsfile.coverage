@@ -1,21 +1,9 @@
 pipeline {
-    agent none
-    options {
-        // global timeout to kill rogue builds
-        timeout(time: 24, unit: 'HOURS')
-        buildDiscarder(logRotator(
-                numToKeepStr: "${env.CHANGE_ID == null ? '100' : '5'}",
-                artifactNumToKeepStr: "${env.CHANGE_ID == null ? '5' : '1'}"
-        ))
-        // skipStagesAfterUnstable()
-        // skipDefaultCheckout()
-    }
-    stages {
-        stage ('coverage') {
-            agent {
-                kubernetes {
-                    defaultContainer 'maven'
-                    yaml '''
+//    agent none
+    agent {
+        kubernetes {
+            defaultContainer 'maven'
+            yaml '''
 apiVersion: v1
 kind: Pod
 spec:
@@ -35,10 +23,21 @@ spec:
     - infinity
 '''
                 }
-            }
+    }
+    options {
+        // global timeout to kill rogue builds
+        timeout(time: 24, unit: 'HOURS')
+        buildDiscarder(logRotator(
+                numToKeepStr: "${env.CHANGE_ID == null ? '100' : '5'}",
+                artifactNumToKeepStr: "${env.CHANGE_ID == null ? '5' : '1'}"
+        ))
+        // skipStagesAfterUnstable()
+        // skipDefaultCheckout()
+    }
+    stages {
+        stage ('coverage') {
             steps {
-                echo "Hello world!"
-                sh(script: 'mvn --help')
+                sh 'mvn clean install'
             }
         }
     }

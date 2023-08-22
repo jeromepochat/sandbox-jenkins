@@ -35,8 +35,7 @@ spec:
     - infinity
 ''') {
                             container('maven') {
-                                MESSAGE = "Hello World!"
-                                echo MESSAGE
+                                sh(script: 'mvn --help')
                             }
                         }
                     }

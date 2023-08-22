@@ -13,6 +13,7 @@ pipeline {
     stages {
         stage ('coverage') {
             steps {
+                echo "blabla"
                 script {
                     agent {
                         podTemplate(yaml: '''

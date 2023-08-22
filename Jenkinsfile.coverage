@@ -14,7 +14,7 @@ pipeline {
         stage ('coverage') {
             agent {
                 kubernetes {
-                    podTemplate(yaml: '''
+                    yaml: '''
 apiVersion: v1
 kind: Pod
 spec:
@@ -32,7 +32,7 @@ spec:
     - sleep
     args:
     - infinity
-''')
+'''
                 }
             }
             steps {

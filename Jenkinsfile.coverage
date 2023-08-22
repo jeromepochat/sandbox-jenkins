@@ -1,5 +1,12 @@
 pipeline {
-//    agent none
+    options {
+        // global timeout to kill rogue builds
+        timeout(time: 24, unit: 'HOURS')
+        buildDiscarder(logRotator(
+                numToKeepStr: "${env.CHANGE_ID == null ? '100' : '5'}",
+                artifactNumToKeepStr: "${env.CHANGE_ID == null ? '5' : '1'}"
+        ))
+    }
     agent {
         kubernetes {
             defaultContainer 'maven'
@@ -23,14 +30,6 @@ spec:
     - infinity
 '''
                 }
-    }
-    options {
-        // global timeout to kill rogue builds
-        timeout(time: 24, unit: 'HOURS')
-        buildDiscarder(logRotator(
-                numToKeepStr: "${env.CHANGE_ID == null ? '100' : '5'}",
-                artifactNumToKeepStr: "${env.CHANGE_ID == null ? '5' : '1'}"
-        ))
     }
     stages {
         stage ('coverage') {

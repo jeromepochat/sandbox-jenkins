@@ -31,8 +31,7 @@ spec:
                 numToKeepStr: "${env.CHANGE_ID == null ? '100' : '5'}",
                 artifactNumToKeepStr: "${env.CHANGE_ID == null ? '5' : '1'}"
         ))
-        // skipStagesAfterUnstable()
-        // skipDefaultCheckout()
+        skipDefaultCheckout()
     }
     stages {
         stage ('coverage') {

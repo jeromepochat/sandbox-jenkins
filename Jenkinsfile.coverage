@@ -35,7 +35,9 @@ spec:
     stages {
         stage ('coverage') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false -Dmaven.javadoc.skip=true -Penable-jacoco verify'
+                withMaven(globalMavenSettingsConfig: 'maven-settings-nexus-internal-ci-build-jobs-g3', publisherStrategy: 'EXPLICIT', options: [jacocoPublisher()]) {
+                    sh 'mvn -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false -Dmaven.javadoc.skip=true -Penable-jacoco verify'
+                }
             }
         }
     }

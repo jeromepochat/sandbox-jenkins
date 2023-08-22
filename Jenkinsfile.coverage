@@ -31,12 +31,11 @@ spec:
                 numToKeepStr: "${env.CHANGE_ID == null ? '100' : '5'}",
                 artifactNumToKeepStr: "${env.CHANGE_ID == null ? '5' : '1'}"
         ))
-        skipDefaultCheckout()
     }
     stages {
         stage ('coverage') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false -Dmaven.javadoc.skip=true -Penable-jacoco verify'
             }
         }
     }

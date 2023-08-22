@@ -1,25 +1,5 @@
 pipeline {
-    agent {
-        podTemplate(yaml: '''
-apiVersion: v1
-kind: Pod
-spec:
-containers:
-- name: maven
-    image: gcr.io/cloudbees-ops-gcr/gaia/maven-openjdk11:4
-    resources:
-    requests:
-        cpu: 1500m
-        memory: 3500Mi
-    limits:
-        cpu: 1500m
-        memory: 3500Mi
-    command:
-    - sleep
-    args:
-    - infinity
-''')
-    }
+    agent none
     options {
         // global timeout to kill rogue builds
         timeout(time: 24, unit: 'HOURS')
@@ -34,8 +14,34 @@ containers:
         stage ('coverage') {
             steps {
                 script {
-                    sh(script: 'mvn --help')
+                    agent {
+                        podTemplate(yaml: '''
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: maven
+    image: gcr.io/cloudbees-ops-gcr/gaia/maven-openjdk11:4
+    resources:
+      requests:
+        cpu: 1500m
+        memory: 3500Mi
+      limits:
+        cpu: 1500m
+        memory: 3500Mi
+    command:
+    - sleep
+    args:
+    - infinity
+''') {
+                            container('maven') {
+                                sh(script: 'mvn --help')
+                            }
+                        }
+                    }
                 }
+
+
             }
         }
     }

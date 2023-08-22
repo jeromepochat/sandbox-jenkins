@@ -12,34 +12,10 @@ pipeline {
     }
     stages {
         stage ('coverage') {
-            agent {
-                podTemplate(yaml: '''
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: maven
-    image: gcr.io/cloudbees-ops-gcr/gaia/maven-openjdk11:4
-    resources:
-      requests:
-        cpu: 1500m
-        memory: 3500Mi
-      limits:
-        cpu: 1500m
-        memory: 3500Mi
-    command:
-    - sleep
-    args:
-    - infinity
-''') {
-                    container('maven') {
-                        steps {
-                            script {
-                                MESSAGE = "Hello World!"
-                                echo MESSAGE
-                            }
-                        }
-                    }
+            steps {
+                script {
+                    MESSAGE = "Hello World!"
+                    echo MESSAGE
                 }
             }
         }

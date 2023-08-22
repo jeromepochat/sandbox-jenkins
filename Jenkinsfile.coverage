@@ -14,7 +14,8 @@ pipeline {
         stage ('coverage') {
             agent {
                 kubernetes {
-                    yaml: '''
+                    defaultContainer 'maven'
+                    yaml '''
 apiVersion: v1
 kind: Pod
 spec:

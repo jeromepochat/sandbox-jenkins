@@ -12,11 +12,8 @@ pipeline {
     }
     stages {
         stage ('coverage') {
-            steps {
-                echo "blabla"
-                script {
-                    agent {
-                        podTemplate(yaml: '''
+            agent {
+                podTemplate(yaml: '''
 apiVersion: v1
 kind: Pod
 spec:
@@ -34,16 +31,11 @@ spec:
     - sleep
     args:
     - infinity
-''') {
-                            echo "Hello world!"
-                            container('maven') {
-                                sh(script: 'mvn --help')
-                            }
-                        }
-                    }
-                }
-
-
+''')
+            }
+            steps {
+                echo "Hello world!"
+                sh(script: 'mvn --help')
             }
         }
     }

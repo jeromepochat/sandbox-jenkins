@@ -13,7 +13,8 @@ pipeline {
     stages {
         stage ('coverage') {
             agent {
-                podTemplate(yaml: '''
+                kubernetes {
+                    podTemplate(yaml: '''
 apiVersion: v1
 kind: Pod
 spec:
@@ -32,6 +33,7 @@ spec:
     args:
     - infinity
 ''')
+                }
             }
             steps {
                 echo "Hello world!"
